@@ -4,7 +4,7 @@ export default class markup extends Component {
     render() {
         return (
             <main>
-                <section>Whatever 🥱😖😩</section>
+                <section></section>
                 <section></section>
                 <section></section>
                 <section></section>
