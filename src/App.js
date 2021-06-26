@@ -8,6 +8,7 @@ import spaceBg from "./components/img/space.jpg";
 import myImageBg from "./components/img/avatar-min.png";
 import moonBg from "./components/img/moon.jpg";
 import normalizeBg from "./components/img/normal.jpg";
+import sunBg from "./components/img/sun.png";
 
 export default class App extends Component {
     componentDidMount() {
@@ -17,7 +18,7 @@ export default class App extends Component {
             75,
             window.innerWidth / window.innerHeight,
             0.1,
-            5000
+            1000
         );
 
         let renderer = new THREE.WebGLRenderer({
@@ -31,11 +32,13 @@ export default class App extends Component {
 
         const controls = new OrbitControls(camera, renderer.domElement);
 
-        const TorusGeometry = new THREE.TorusGeometry(10, 3, 32, 100);
-        const ToursMaterial = new THREE.MeshStandardMaterial({
-            color: 0xff0057,
-        });
-        const Torus = new THREE.Mesh(TorusGeometry, ToursMaterial);
+        const Torus = new THREE.Mesh(
+            new THREE.TorusGeometry(10, 2, 32, 100),
+            new THREE.MeshStandardMaterial({
+                color: 0xff0057,
+            })
+        );
+        Torus.position.x = 5;
         scene.add(Torus);
 
         const pointLight = new THREE.PointLight(0xffffff);
@@ -46,37 +49,46 @@ export default class App extends Component {
         scene.add(ambientLight);
 
         // const pointLightHelper = new THREE.PointLightHelper(pointLight);
-        // const gridHelper = new THREE.GridHelper(200, 50);
-        // scene.add(pointLightHelper, gridHelper);
+        // const grid = new THREE.GridHelper(200, 50);
+        // scene.add(pointLightHelper, grid);
 
+        /**
+         * Generates Stars at random position.
+         */
         function generateStars() {
-            const sphereGeometry = new THREE.SphereGeometry(0.1, 24, 24);
-            const sphereMaterial = new THREE.MeshStandardMaterial({
-                color: 0xffffff,
-            });
-            const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+            const sphere = new THREE.Mesh(
+                new THREE.SphereGeometry(0.1, 24, 24),
+                new THREE.MeshStandardMaterial({
+                    color: 0xffffff,
+                })
+            );
 
             const [x, y, z] = Array(3)
                 .fill()
-                .map(() => THREE.MathUtils.randFloatSpread(100));
+                .map(() => THREE.MathUtils.randFloatSpread(150));
 
             sphere.position.set(x, y, z);
             scene.add(sphere);
         }
 
-        Array(200).fill().forEach(generateStars);
+        Array(400).fill().forEach(generateStars);
 
         const spaceTexture = new THREE.TextureLoader().load(spaceBg);
         scene.background = spaceTexture;
 
+        // My image
         const myImage = new THREE.TextureLoader().load(myImageBg);
         const boxImage = new THREE.Mesh(
-            new THREE.BoxGeometry(5, 5, 5),
+            new THREE.BoxGeometry(6, 6, 6),
             new THREE.MeshBasicMaterial({ map: myImage, transparent: true })
         );
-        boxImage.rotation.y = 40;
+        boxImage.rotation.x = Math.PI / 3;
+        boxImage.rotation.y = Math.PI / 4;
+        boxImage.rotation.z = -Math.PI / 8;
+        boxImage.position.x = 5;
         scene.add(boxImage);
 
+        // Moon
         const moonTexture = new THREE.TextureLoader().load(moonBg);
         const normalTexture = new THREE.TextureLoader().load(normalizeBg);
         const moon = new THREE.Mesh(
@@ -90,6 +102,16 @@ export default class App extends Component {
         moon.position.setX(-20);
         scene.add(moon);
 
+        // Sun
+        const sunTexture = new THREE.TextureLoader().load(sunBg);
+        const sun = new THREE.Mesh(
+            new THREE.SphereGeometry(15, 64, 64),
+            new THREE.MeshBasicMaterial({ map: sunTexture })
+        );
+        sun.position.z = 60;
+        sun.position.x = 28;
+        scene.add(sun);
+
         document.body.onscroll = () => {
             console.log("hi");
             const top = document.body.getBoundingClientRect().top;
@@ -97,12 +119,14 @@ export default class App extends Component {
             moon.rotation.y += 0.075;
             // moon.rotation.z += 0.05;
 
-            boxImage.rotation.y = top * 0.001 + 40;
-            boxImage.rotation.z = top * 0.001;
+            boxImage.rotation.y = top * 0.001 + Math.PI / 4;
+            boxImage.rotation.z = top * 0.001 - Math.PI / 8;
 
             camera.position.x = top * -0.002 + 10;
             camera.position.y = top * -0.002 + 10;
             camera.position.z = top * -0.01 + 10;
+
+            console.log(camera.position.x);
         };
 
         function animate() {
