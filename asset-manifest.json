@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Three-JS-with-React-App/static/css/main.a429eaf7.css",
+    "main.js": "/Three-JS-with-React-App/static/js/main.f79231b8.js",
+    "static/js/787.f08c84b5.chunk.js": "/Three-JS-with-React-App/static/js/787.f08c84b5.chunk.js",
+    "static/media/normal.jpg": "/Three-JS-with-React-App/static/media/normal.573c0a93c594c41b13ab.jpg",
+    "static/media/sun.png": "/Three-JS-with-React-App/static/media/sun.2527d3719da783f5ca47.png",
+    "static/media/moon.jpg": "/Three-JS-with-React-App/static/media/moon.a2edaf8548e78714814b.jpg",
+    "static/media/space.jpg": "/Three-JS-with-React-App/static/media/space.80687b0111f84fd6c97e.jpg",
+    "static/media/avatar-min.png": "/Three-JS-with-React-App/static/media/avatar-min.11f2f82dcf0bfae3a0ae.png",
+    "index.html": "/Three-JS-with-React-App/index.html",
+    "main.a429eaf7.css.map": "/Three-JS-with-React-App/static/css/main.a429eaf7.css.map",
+    "main.f79231b8.js.map": "/Three-JS-with-React-App/static/js/main.f79231b8.js.map",
+    "787.f08c84b5.chunk.js.map": "/Three-JS-with-React-App/static/js/787.f08c84b5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a429eaf7.css",
+    "static/js/main.f79231b8.js"
+  ]
+}
